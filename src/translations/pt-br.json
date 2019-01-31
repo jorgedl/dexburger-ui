@@ -1,0 +1,11 @@
+{
+    "header": {
+        "menu": "Cardápio",
+        "orders": "Pedidos",
+        "deliveryArea": "Área de Entrega",
+        "contact": "Contato"
+    },
+    "menu": {
+        "title": "Cardápio"
+    }
+}

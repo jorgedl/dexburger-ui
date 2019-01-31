@@ -1,0 +1,25 @@
+@import '../../../less/variables.less';
+
+.header {
+    padding: 0 4em;
+    background: @main-color;
+    display: flex;
+    color: #FFF;
+    height: 4em;
+    min-height: 4em;
+
+    &__group {
+        display: flex;
+        align-items: center;
+
+        &--expanded {
+            flex: 1;
+        }
+    }
+}
+
+.brand {
+    font-size: 2em;
+    font-weight: 600;
+    padding-right: 2em;
+}

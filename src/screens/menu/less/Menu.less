@@ -1,0 +1,21 @@
+@import '../../../less/variables.less';
+
+.menu {
+
+    &__title {
+        font-size: 2em;
+        font-weight: 300;
+    }
+
+    &__options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-gap: 2em;
+        margin-top: 2em;
+    }
+
+    &__option {
+        background-color: @light-gray;
+        display: flex;
+    }
+}

@@ -1,0 +1,74 @@
+.menu-option {
+    flex: 1;
+    text-align: left;
+    cursor: pointer;
+    outline: 0;
+    padding: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    height: 20em;
+
+    &__image {
+        background: #FFF;
+        height: 12em;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+
+    &__title {
+        font-weight: 600;
+        font-size: 1.1em;
+        width: 100%;
+    }
+
+    &__description {
+        font-size: .9em;
+        width: 100%;
+    }
+
+    &__price {
+        text-align: right;
+        font-size: 1.8em;
+        width: 100%;
+        align-self: flex-end;
+    }
+
+    &__cartoverlay {
+        font-size: 1.5em;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        transition: ease .2s;
+
+    }
+
+    &__ingredients {
+        display: grid;
+        grid-template-columns: 3fr 1fr repeat(3, auto);
+        grid-gap: .5em;
+        height: 10em;
+        width: 100%;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        font-size: 1em;
+        max-height: 3em;
+    }
+
+    &:hover {
+        .menu-option__cartoverlay {
+            opacity: 1;
+            background: rgba(0,0,0,.4);
+            color: #FFF;
+        }
+    }
+}
