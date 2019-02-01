@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autobind } from 'core-decorators';
 import Order from '../../businessLogic/Order';
+import i18next from 'i18next';
 import { MenuSelectedOption } from '..';
 
 import './less/MenuOption.less';
@@ -92,7 +93,8 @@ class MenuOption extends Component {
         const { selecting, selectedIngredients } = this.state;
         const {
             name,
-            ingredientList
+            ingredientList,
+            id
         } = this.props;
         const price = this.order.total;
         if (selecting) {
@@ -119,12 +121,12 @@ class MenuOption extends Component {
                     <div
                         className="menu-option__cartoverlay"
                     >
-                        <span>Adicionar ao pedido</span>
+                        <span>{ i18next.t('menu.addToCart') }</span>
                         <i className="fa fa-cart-plus" />
                     </div>
                 </div>
                 <div className="menu-option__title">{ name }</div>
-                <div className="menu-option__description">Delicioso Hamburger Bovino</div>
+                <div className="menu-option__description">{ i18next.t(`menu.descriptions.${id}`) }</div>
             </div>
         );
     }

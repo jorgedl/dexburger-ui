@@ -11,7 +11,7 @@ function renderLightDiscount(selected, all) {
     if (lightDiscount(selected, all, 10) !== 10) {
         return (
             <li>
-                O desconto LIGHT foi aplicado
+                { i18next.t('menu.discounts.light') }
             </li>
         );
     }
@@ -22,7 +22,7 @@ function renderCheeseDiscount(selected) {
     if (selected.cheese > 2) {
         return (
             <li>
-                O desconto MUITO QUEIJO foi aplicado
+                { i18next.t('menu.discounts.cheese') }
             </li>
         );
     }
@@ -33,7 +33,7 @@ function renderMeatDiscount(selected) {
     if (selected.beefBurger > 2) {
         return (
             <li>
-                O desconto MUITA CARNE foi aplicado
+                { i18next.t('menu.discounts.meat') }
             </li>
         );
     }
@@ -65,7 +65,7 @@ function MenuSelectedOption({
                 <div><strong>{ i18next.t('menu.price') }</strong></div>
                 <div />
                 <div />
-                <div><strong>{ i18next.t('menu.quantity_abreviated') }</strong></div>
+                <div><strong>{ i18next.t('menu.quantityAbbreviated') }</strong></div>
                 {
                     ingredientList.map(({
                         id: ingredientId,
@@ -93,13 +93,13 @@ function MenuSelectedOption({
                     onClick={cancel}
                     variant="secondary"
                 >
-                    Cancelar
+                    { i18next.t('menu.cancel') }
                 </Button>
                 <Button
                     onClick={confirm}
                     variant="primary"
                 >
-                    Adicionar
+                    { i18next.t('menu.confirm') }
                 </Button>
             </div>
             <div className="menu-option__price">{numeral(price).format('$0.00')}</div>

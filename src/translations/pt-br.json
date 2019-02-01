@@ -10,9 +10,28 @@
         "ingredient": "Ingrediente",
         "price": "Preço",
         "quantity": "Quantidade",
-        "quantity_abreviated": "Qnt."
+        "quantityAbbreviated": "Qnt.",
+        "addToCart": "Adicionar ao pedido",
+        "descriptions": {
+            "x-egg-bacon": "Monstruoso! Pão, hambúrguer, queijo, bacon e ovo",
+            "x-bacon":"Pão, hambúrguer, queijo e bacon",
+            "x-burger": "Clássico com hambúrguer de 100g",
+            "x-egg": "Para completar suas metas de proteínas",
+            "custom": "O lanche do seu jeito para sua fome"
+        },
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "discounts": {
+            "light": "O desconto LIGHT foi aplicado",
+            "cheese": "O desconto MUITO QUEIJO foi aplicado",
+            "meat": "O desconto MUITA CARNE foi aplicado"
+        }
     },
     "cart": {
         "title": "Pedido"
+    },
+    "home": {
+        "title": "Bem vindo ao DexBurger!",
+        "goToMenu": "Conheça nosso cardápio"
     }
 }

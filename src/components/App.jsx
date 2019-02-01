@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Header, Footer } from '.';
+import { Home } from '../screens';
 import { MenuContainer, CartContainer } from '../containers';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
                 <Header />
                 <div className="app__container">
                     <Switch>
+                        <Route exact path="/" component={Home} />
                         <Route exact path="/menu" component={MenuContainer} />
                     </Switch>
                     <CartContainer />
