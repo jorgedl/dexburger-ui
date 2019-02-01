@@ -14,14 +14,16 @@ function Menu({ items, ingredients }) {
                 { items.map(({
                     id,
                     name,
-                    price
+                    price,
+                    recipe
                 }) => (
                     <div key={id} className="menu__option">
                         <MenuOption
                             id={id}
                             name={name}
                             price={price}
-                            ingredients={ingredients}
+                            ingredientList={ingredients}
+                            currentIngredients={recipe}
                         />
                     </div>
                 ))}

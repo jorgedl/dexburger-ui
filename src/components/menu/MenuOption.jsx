@@ -23,7 +23,12 @@ class MenuOption extends Component {
 
     render() {
         const { selecting } = this.state;
-        const { name, price, ingredients } = this.props;
+        const {
+            name,
+            price,
+            ingredientList,
+            currentIngredients
+        } = this.props;
         const formattedPrice = numeral(price).format('$0.00');
         if (selecting) {
             return (
@@ -35,7 +40,7 @@ class MenuOption extends Component {
                         <div />
                         <div><strong>Qnt.</strong></div>
                         {
-                            ingredients.map(({
+                            ingredientList.map(({
                                 id: ingredientId,
                                 name: ingredientName,
                                 price: ingredientPrice
@@ -44,6 +49,9 @@ class MenuOption extends Component {
                                     name={ingredientName}
                                     key={ingredientId}
                                     price={ingredientPrice}
+                                    quantity={currentIngredients.filter(
+                                        id => id === ingredientId
+                                    ).length}
                                 />
                             ))
                         }
@@ -93,7 +101,8 @@ class MenuOption extends Component {
 MenuOption.propTypes = {
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    ingredients: PropTypes.arrayOf(
+    currentIngredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    ingredientList: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string,
             name: PropTypes.string,

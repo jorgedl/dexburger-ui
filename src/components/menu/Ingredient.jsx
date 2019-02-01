@@ -4,7 +4,7 @@ import numeral from 'numeral';
 
 import './less/Ingredient.less';
 
-function Ingredient({ name, price }) {
+function Ingredient({ name, price, quantity }) {
     return (
         <Fragment>
             <div className="ingredient__name">
@@ -20,7 +20,7 @@ function Ingredient({ name, price }) {
                 <i className="fa fa-minus" />
             </div>
             <div className="ingredient__quantity">
-                1
+                { quantity }
             </div>
         </Fragment>
     );
@@ -28,6 +28,7 @@ function Ingredient({ name, price }) {
 
 Ingredient.propTypes = {
     name: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
 };
 
