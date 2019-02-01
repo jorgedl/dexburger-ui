@@ -1,6 +1,7 @@
 const initialState = {
     items: [],
-    error: null
+    error: null,
+    total: 0
 };
 
 export default function cart(state = initialState, action) {
@@ -11,7 +12,8 @@ export default function cart(state = initialState, action) {
             items: [
                 ...state.items,
                 action.order
-            ]
+            ],
+            total: state.total + action.order.total
         };
     case 'CONFIRM_ORDER':
         return {

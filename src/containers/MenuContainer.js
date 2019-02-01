@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import {
+    menuFetchSuccess,
     menuFetchBegin,
+    ingredientsFetchSuccess
 } from '../actions/menuActions';
 
 import {
@@ -21,8 +24,15 @@ function mapStateToProps({ burgers, ingredients }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchMenu: () => dispatch(menuFetchBegin()),
-        fetchIngredients: () => dispatch(menuFetchBegin()),
+        fetchMenu: async () => {
+            dispatch(menuFetchBegin());
+            const { data } = await axios.get('http://localhost:3000/burgers');
+            dispatch(menuFetchSuccess(data));
+        },
+        fetchIngredients: async () => {
+            const { data } = await axios.get('http://localhost:3000/ingredients');
+            dispatch(ingredientsFetchSuccess(data));
+        },
         addToCart: order => dispatch(addToCart(order))
     };
 }

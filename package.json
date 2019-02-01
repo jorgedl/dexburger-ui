@@ -1,5 +1,5 @@
 {
-  "name": "field",
+  "name": "dexburger-ui",
   "version": "1.0.0",
   "description": "DexBurger",
   "main": "index.js",
@@ -20,7 +20,7 @@
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     },
     "collectCoverageFrom": [
-      "./src/components/**/*.js"
+      "./src/**/*.js"
     ],
     "testURL": "http://localhost/"
   },
@@ -60,6 +60,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "core-decorators": "^0.20.0",
     "es6-promise": "^4.2.5",

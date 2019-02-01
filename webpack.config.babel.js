@@ -9,7 +9,7 @@ const configs = {
 
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'field.[hash].js'
+        filename: 'dexburger.[hash].js'
     },
 
     resolve: {

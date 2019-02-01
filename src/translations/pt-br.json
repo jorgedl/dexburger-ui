@@ -6,7 +6,11 @@
         "contact": "Contato"
     },
     "menu": {
-        "title": "Cardápio"
+        "title": "Cardápio",
+        "ingredient": "Ingrediente",
+        "price": "Preço",
+        "quantity": "Quantidade",
+        "quantity_abreviated": "Qnt."
     },
     "cart": {
         "title": "Pedido"

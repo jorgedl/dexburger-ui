@@ -8,9 +8,10 @@ import { Cart } from '../screens';
 
 
 function mapStateToProps({ cart }) {
-    const { items } = cart;
+    const { items, total } = cart;
     return {
-        items
+        items,
+        total
     };
 }
 

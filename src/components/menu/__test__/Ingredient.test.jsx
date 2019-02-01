@@ -11,7 +11,10 @@ numeral.locale('pt-br');
 test('Ingredient text shows as expected after numeral translation', () => {
     const ingredientMock = {
         name: 'Hamburger',
-        price: 5
+        price: 5,
+        onAdd: () => {},
+        onRemove: () => {},
+        quantity: 3
     };
 
     const wrapper = shallow(

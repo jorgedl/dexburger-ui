@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autobind } from 'core-decorators';
-import numeral from 'numeral';
-import { Button, Ingredient } from '..';
+import Order from '../../businessLogic/Order';
+import { MenuSelectedOption } from '..';
 
 import './less/MenuOption.less';
 
@@ -12,13 +12,20 @@ class MenuOption extends Component {
 
         this.state = {
             selecting: false,
-            selectedIngredients: this.populateSelectedIngredients()
+            selectedIngredients: {}
         };
+
+        this.order = new Order(props.ingredientList);
     }
 
     @autobind
     addToCart() {
         const { selectedIngredients } = this.state;
+
+        if (this.order.total === 0) {
+            return;
+        }
+
         const {
             addToCart,
             id,
@@ -28,7 +35,8 @@ class MenuOption extends Component {
         const order = {
             itemId: id,
             ingredients: selectedIngredients,
-            name
+            name,
+            total: this.order.total
         };
 
         addToCart(order);
@@ -38,23 +46,32 @@ class MenuOption extends Component {
 
     @autobind
     toggleSelectOption() {
-        this.setState(({ selecting: prevStateSelecting }) => ({
-            selecting: !prevStateSelecting,
-            selectedIngredients: this.populateSelectedIngredients()
-        }));
+        this.setState(({ selecting: prevStateSelecting }) => {
+            let selectedIngredients = {};
+            if (!prevStateSelecting) {
+                selectedIngredients = this.populateSelectedIngredients();
+            }
+            this.order.updateOrder(selectedIngredients);
+            return {
+                selecting: !prevStateSelecting,
+                selectedIngredients
+            };
+        });
     }
 
     @autobind
     changeIngredientQnt(id, operation) {
-        this.setState(({ selectedIngredients }) => (
-            {
-                selectedIngredients: {
-                    ...selectedIngredients,
-                    [id]: operation(selectedIngredients[id]) < 0
-                        ? 0 : operation(selectedIngredients[id])
-                }
-            }
-        ));
+        this.setState(({ selectedIngredients: ingredients }) => {
+            const selectedIngredients = {
+                ...ingredients,
+                [id]: operation(ingredients[id]) < 0
+                    ? 0 : operation(ingredients[id])
+            };
+            this.order.updateOrder(selectedIngredients);
+            return {
+                selectedIngredients
+            };
+        });
     }
 
     populateSelectedIngredients() {
@@ -77,55 +94,17 @@ class MenuOption extends Component {
             name,
             ingredientList
         } = this.props;
-        const price = Object.keys(selectedIngredients).reduce((total, item) => (
-            total + ingredientList.find(({ id }) => item === id).price * selectedIngredients[item]
-        ), 0);
+        const price = this.order.total;
         if (selecting) {
             return (
-                <div className="menu-option menu-option--selecting">
-                    <div className="menu-option__ingredients">
-                        <div><strong>Ingrediente</strong></div>
-                        <div><strong>Preço</strong></div>
-                        <div />
-                        <div />
-                        <div><strong>Qnt.</strong></div>
-                        {
-                            ingredientList.map(({
-                                id: ingredientId,
-                                name: ingredientName,
-                                price: ingredientPrice
-                            }) => (
-                                <Ingredient
-                                    name={ingredientName}
-                                    key={ingredientId}
-                                    price={ingredientPrice}
-                                    quantity={selectedIngredients[ingredientId]}
-                                    onAdd={() => (
-                                        this.changeIngredientQnt(ingredientId, item => item + 1)
-                                    )}
-                                    onRemove={() => (
-                                        this.changeIngredientQnt(ingredientId, item => item - 1)
-                                    )}
-                                />
-                            ))
-                        }
-                    </div>
-                    <div className="menu-option__actions">
-                        <Button
-                            onClick={this.toggleSelectOption}
-                            variant="secondary"
-                        >
-                            Cancelar
-                        </Button>
-                        <Button
-                            onClick={this.addToCart}
-                            variant="primary"
-                        >
-                            Adicionar
-                        </Button>
-                    </div>
-                    <div className="menu-option__price">{numeral(price).format('$0.00')}</div>
-                </div>
+                <MenuSelectedOption
+                    changeIngredientQnt={this.changeIngredientQnt}
+                    selectedIngredients={selectedIngredients}
+                    ingredientList={ingredientList}
+                    confirm={this.addToCart}
+                    cancel={this.toggleSelectOption}
+                    price={price}
+                />
             );
         }
         return (
