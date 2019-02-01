@@ -9,27 +9,77 @@ import './less/MenuOption.less';
 class MenuOption extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            selecting: false
+            selecting: false,
+            selectedIngredients: this.populateSelectedIngredients()
         };
+    }
+
+    @autobind
+    addToCart() {
+        const { selectedIngredients } = this.state;
+        const {
+            addToCart,
+            id,
+            name
+        } = this.props;
+
+        const order = {
+            itemId: id,
+            ingredients: selectedIngredients,
+            name
+        };
+
+        addToCart(order);
+
+        this.toggleSelectOption();
     }
 
     @autobind
     toggleSelectOption() {
         this.setState(({ selecting: prevStateSelecting }) => ({
-            selecting: !prevStateSelecting
+            selecting: !prevStateSelecting,
+            selectedIngredients: this.populateSelectedIngredients()
         }));
     }
 
+    @autobind
+    changeIngredientQnt(id, operation) {
+        this.setState(({ selectedIngredients }) => (
+            {
+                selectedIngredients: {
+                    ...selectedIngredients,
+                    [id]: operation(selectedIngredients[id]) < 0
+                        ? 0 : operation(selectedIngredients[id])
+                }
+            }
+        ));
+    }
+
+    populateSelectedIngredients() {
+        const { currentIngredients, ingredientList } = this.props;
+
+        const selectedIngredients = {};
+
+        ingredientList.forEach(({ id: ingredientId }) => {
+            selectedIngredients[ingredientId] = currentIngredients.filter(
+                id => id === ingredientId
+            ).length;
+        });
+
+        return selectedIngredients;
+    }
+
     render() {
-        const { selecting } = this.state;
+        const { selecting, selectedIngredients } = this.state;
         const {
             name,
-            price,
-            ingredientList,
-            currentIngredients
+            ingredientList
         } = this.props;
-        const formattedPrice = numeral(price).format('$0.00');
+        const price = Object.keys(selectedIngredients).reduce((total, item) => (
+            total + ingredientList.find(({ id }) => item === id).price * selectedIngredients[item]
+        ), 0);
         if (selecting) {
             return (
                 <div className="menu-option menu-option--selecting">
@@ -49,9 +99,13 @@ class MenuOption extends Component {
                                     name={ingredientName}
                                     key={ingredientId}
                                     price={ingredientPrice}
-                                    quantity={currentIngredients.filter(
-                                        id => id === ingredientId
-                                    ).length}
+                                    quantity={selectedIngredients[ingredientId]}
+                                    onAdd={() => (
+                                        this.changeIngredientQnt(ingredientId, item => item + 1)
+                                    )}
+                                    onRemove={() => (
+                                        this.changeIngredientQnt(ingredientId, item => item - 1)
+                                    )}
                                 />
                             ))
                         }
@@ -64,13 +118,13 @@ class MenuOption extends Component {
                             Cancelar
                         </Button>
                         <Button
-                            onClick={this.toggleSelectOption}
+                            onClick={this.addToCart}
                             variant="primary"
                         >
                             Adicionar
                         </Button>
                     </div>
-                    <div className="menu-option__price">{formattedPrice}</div>
+                    <div className="menu-option__price">{numeral(price).format('$0.00')}</div>
                 </div>
             );
         }
@@ -92,7 +146,6 @@ class MenuOption extends Component {
                 </div>
                 <div className="menu-option__title">{ name }</div>
                 <div className="menu-option__description">Delicioso Hamburger Bovino</div>
-                <div className="menu-option__price">{formattedPrice}</div>
             </div>
         );
     }
@@ -100,7 +153,6 @@ class MenuOption extends Component {
 
 MenuOption.propTypes = {
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
     currentIngredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     ingredientList: PropTypes.arrayOf(
         PropTypes.shape({
@@ -108,7 +160,9 @@ MenuOption.propTypes = {
             name: PropTypes.string,
             price: PropTypes.number,
         })
-    ).isRequired
+    ).isRequired,
+    id: PropTypes.string.isRequired,
+    addToCart: PropTypes.func.isRequired
 };
 
 export default MenuOption;

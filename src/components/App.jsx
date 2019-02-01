@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Header, Footer } from '.';
-import { MenuContainer } from '../containers';
+import { MenuContainer, CartContainer } from '../containers';
 
 function App() {
     return (
@@ -12,6 +12,7 @@ function App() {
                     <Switch>
                         <Route exact path="/menu" component={MenuContainer} />
                     </Switch>
+                    <CartContainer />
                 </div>
                 <Footer />
             </div>

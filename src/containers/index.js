@@ -1,8 +1,7 @@
 import MenuContainer from './MenuContainer';
-
-const Orders = '';
+import CartContainer from './CartContainer';
 
 export {
     MenuContainer,
-    Orders
+    CartContainer
 };

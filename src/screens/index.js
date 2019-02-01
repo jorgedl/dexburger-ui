@@ -1,8 +1,8 @@
 import Menu from './menu/Menu';
+import Cart from './cart/Cart';
 
-const Orders = '';
 
 export {
     Menu,
-    Orders
+    Cart
 };

@@ -4,7 +4,13 @@ import numeral from 'numeral';
 
 import './less/Ingredient.less';
 
-function Ingredient({ name, price, quantity }) {
+function Ingredient({
+    name,
+    price,
+    quantity,
+    onAdd,
+    onRemove
+}) {
     return (
         <Fragment>
             <div className="ingredient__name">
@@ -13,10 +19,22 @@ function Ingredient({ name, price, quantity }) {
             <div className="ingredient__name">
                 { numeral(price).format('$0.00') }
             </div>
-            <div className="ingredient__add">
+            <div
+                onClick={onAdd}
+                tabIndex="0"
+                onKeyPress={onAdd}
+                role="button"
+                className="ingredient__add"
+            >
                 <i className="fa fa-plus" />
             </div>
-            <div className="ingredient__remove">
+            <div
+                onClick={onRemove}
+                tabIndex="0"
+                onKeyPress={onRemove}
+                role="button"
+                className="ingredient__remove"
+            >
                 <i className="fa fa-minus" />
             </div>
             <div className="ingredient__quantity">
@@ -30,6 +48,8 @@ Ingredient.propTypes = {
     name: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
+    onAdd: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired
 };
 
 export default Ingredient;

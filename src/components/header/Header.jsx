@@ -9,7 +9,7 @@ function Header() {
         <header className="header">
             <div className="header__group brand">
                 <Link to="/" className="header__link">
-                    Burger
+                    DexBurger
                 </Link>
             </div>
             <div className="header__group header__group--expanded">

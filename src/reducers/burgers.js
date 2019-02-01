@@ -5,10 +5,9 @@ const initialState = {
             recipe: [
                 'bacon',
                 'beef-burger',
-                'cheese'
+                'cheese',
             ],
             id: 'x-bacon',
-            price: 6.5
         },
         {
             name: 'X-Burger',
@@ -17,7 +16,6 @@ const initialState = {
                 'beef-burger'
             ],
             id: 'x-burger',
-            price: 5
         },
         {
             name: 'X-Egg',
@@ -27,7 +25,6 @@ const initialState = {
                 'cheese'
             ],
             id: 'x-egg',
-            price: 4.3
         },
         {
             name: 'X-Egg Bacon',
@@ -35,10 +32,9 @@ const initialState = {
                 'egg',
                 'bacon',
                 'beef-burger',
-                'cheese'
+                'cheese',
             ],
-            id: 'x-egg-bacon',
-            price: 7.3
+            id: 'x-egg-bacon'
         }
     ]
 };

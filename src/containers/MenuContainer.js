@@ -4,6 +4,10 @@ import {
     menuFetchBegin,
 } from '../actions/menuActions';
 
+import {
+    addToCart,
+} from '../actions/cartActions';
+
 import { Menu } from '../screens';
 
 
@@ -18,7 +22,8 @@ function mapStateToProps({ burgers, ingredients }) {
 function mapDispatchToProps(dispatch) {
     return {
         fetchMenu: () => dispatch(menuFetchBegin()),
-        fetchIngredients: () => dispatch(menuFetchBegin())
+        fetchIngredients: () => dispatch(menuFetchBegin()),
+        addToCart: order => dispatch(addToCart(order))
     };
 }
 

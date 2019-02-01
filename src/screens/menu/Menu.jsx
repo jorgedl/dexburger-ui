@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18next from 'i18next';
-import './less/Menu.less';
 import { MenuOption } from '../../components';
 
-function Menu({ items, ingredients }) {
+import './less/Menu.less';
+
+function Menu({ items, ingredients, addToCart }) {
     return (
         <div className="menu">
             <h2 className="menu__title">
@@ -24,6 +25,7 @@ function Menu({ items, ingredients }) {
                             price={price}
                             ingredientList={ingredients}
                             currentIngredients={recipe}
+                            addToCart={addToCart}
                         />
                     </div>
                 ))}
@@ -40,6 +42,7 @@ Menu.propTypes = {
             price: PropTypes.number,
         })
     ),
+    addToCart: PropTypes.func.isRequired,
     ingredients: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string,
